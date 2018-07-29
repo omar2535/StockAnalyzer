@@ -7,7 +7,7 @@ class StocksController < ApplicationController
 
     def create
       render plain: "stuff"
-      scraper = StocksHelper::StockScraper.new(stock_search_params[:stockName])
+      scraper = StocksHelper::StockScraper.new(stock_search_params[:stockTicker])
     end
 
     def index
@@ -17,6 +17,6 @@ class StocksController < ApplicationController
 
   private
     def stock_search_params
-      params.require(:stock).permit(:stockName)
+      params.require(:stock).permit(:stockTicker)
     end
 end
