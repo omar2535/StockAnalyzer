@@ -47,10 +47,10 @@ module StocksHelper
       page = Nokogiri::HTML(open(url))
       table = page.at('table')
       rows = table.css('tr')
-      rows.each_with_index do |row, row_index|
+      rows.each do |row|
         row = row.css('td')
         temp_arr = []
-        row.each_with_index do |data, data_index|
+        row.each do |data|
           temp_arr.push(data.text)
         end
         result.push(temp_arr)
