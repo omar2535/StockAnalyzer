@@ -6,8 +6,10 @@ class StocksController < ApplicationController
     end
 
     def create
-      render plain: "stuff"
       scraper = StocksHelper::StockScraper.new(stock_search_params[:stockTicker])
+
+      render 'stocks/stockinfo', locals: {resource: scraper.scrape, name: stock_search_params[:stockTicker]}
+
     end
 
     def index

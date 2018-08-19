@@ -9,16 +9,17 @@ module StocksHelper
 
   class StockScraper
     attr_reader :stockTicker
+
+    #constructor, initializes stock name
     def initialize(stockName)
       puts "Stock name to search for is: " + stockName
       @stockTicker = stockName
-      scrape
     end
 
     #top caller of scraping all data
     #will return all scraped data and perform assesment
     def scrape()
-      scrapeForIncomeStatement
+      scrapeForCurrentData
     end
 
     private
@@ -26,7 +27,6 @@ module StocksHelper
       def scrapeForCurrentData()
         url = "https://ca.finance.yahoo.com/quote/" + @stockTicker + "/key-statistics?"
         result = {}
-        #puts url
         page = Nokogiri::HTML(open(url))
         main_contents = page.css('tr td')
         main_contents.search('sup').remove
@@ -43,7 +43,7 @@ module StocksHelper
     # reurns array of income statement objects
     def scrapeForIncomeStatement()
       result = [[]]
-      url = "https://ca.finance.yahoo.com/quote/" + @stockTicker + "/financials?p="+ @stockTicker;
+      url = "https://ca.finance.yahoo.com/quote/" + @stockTicker + "/financials?p="+ @stockTicker
       page = Nokogiri::HTML(open(url))
       table = page.at('table')
       rows = table.css('tr')
@@ -70,10 +70,9 @@ module StocksHelper
     end
 
 
-
-
     def scrapeForBalanceSheet()
-
+      result = [[]]
+      url = "https://ca.finance.yahoo.com/quote/" + @stockTicker + "/balance-sheet?p="+@stockTicker
     end
 
     def scrapeForCashFlow()

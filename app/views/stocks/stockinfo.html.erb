@@ -1,0 +1,19 @@
+<head>
+
+
+  <title>Info</title>
+  <h1> Stock Info of <%= name %></h1>
+
+
+</head>
+
+
+<body>
+<!-- print out contents of stock data-->
+<% resource.each do |title, value| %>
+  <div class="stock_info">
+    <%= title %>: <%= value %>
+  </div>
+<% end %>
+
+</body>
